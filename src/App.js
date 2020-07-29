@@ -1,25 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route, useLocation } from 'react-router-dom';
+//pages
+import Home from './pages/Home';
+import AlbumPage from './templates/AlbumPage';
+import TourPage from './pages/TourPage';
+import NoMatch from './pages/NoMatch';
 
 function App() {
+  const location = useLocation()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Switch location={location} key={location.pathname}>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/albums/:albumId" component={AlbumPage} />
+        <Route exact path="/tour"  component={TourPage} />
+        <Route path="*" component={NoMatch} />
+      </Switch>
   );
 }
 
